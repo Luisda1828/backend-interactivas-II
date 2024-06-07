@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Hola;
 use Illuminate\Http\Request;
 
-class HolaController extends Controller
+class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +33,7 @@ class HolaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Hola $hola)
+    public function show(string $id)
     {
         //
     }
@@ -42,7 +41,7 @@ class HolaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Hola $hola)
+    public function edit(string $id)
     {
         //
     }
@@ -50,7 +49,7 @@ class HolaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Hola $hola)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +57,7 @@ class HolaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Hola $hola)
+    public function destroy(string $id)
     {
         //
     }

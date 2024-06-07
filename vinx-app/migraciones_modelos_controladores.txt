@@ -1,0 +1,132 @@
+<------------------Migraciones------------------>
+php artisan make:migration create_tags_table
+php artisan make:migration create_types_table
+php artisan make:migration create_categories_table
+php artisan make:migration create_courses_table
+php artisan make:migration create_events_table
+php artisan make:migration create_users_table
+php artisan make:migration create_user_has_courses_table
+php artisan make:migration create_user_has_events_table
+
+
+
+<------------------Modelos------------------>
+php artisan make:model Type
+php artisan make:model Tag
+php artisan make:model Category
+php artisan make:model Event
+php artisan make:model Course
+php artisan make:model User
+php artisan make:model UserHasEvent
+php artisan make:model UserHasCourse
+
+<------------------Controladores------------------>
+php artisan make:controller TypeController --resource
+php artisan make:controller TagController --resource
+php artisan make:controller CategoryController --resource
+php artisan make:controller EventController --resource
+php artisan make:controller CourseController --resource
+php artisan make:controller UserController --resource
+php artisan make:controller UserHasEventController --resource
+php artisan make:controller UserHasCourseController --resource
+
+<------------------Encabezados en tablas------------------>
+Tag:
+protected $fillable = ['tag_id', 'tag_name', 'tag_image', 'tag_description'];
+
+Categories:
+protected $fillable = ['cat_id', 'cat_name', 'cat_image', 'cat_Description'];
+
+Events:
+protected $fillable = ['eve_id', 'eve_title', 'eve_id_course', 'eve_description', 'id_etiqueta', 'id_category', 'eve_image', 'eve_date', 'eve_hour'];
+
+Courses:
+protected $fillable = ['cour_id', 'cour_name', 'cour_teacher', 'cour_semester', 'cour_year'];
+
+User:
+protected $fillable = ['user_id', 'user_name', 'user_id_curso', 'user_lastname', 'user_birth', 'user_email', 'user_password', 'user_career', 'user_studentCarne', 'user_illness', 'sleep_time', 'excercise_time', 'id_type'];
+
+UserhasEvents:
+protected $fillable = ['id', 'id_user', 'id_events', 'estado'];
+
+UserhasCourse:
+protected $fillable = ['id', 'id_user', 'id_course', 'progress'];
+
+Type:
+protected $fillable = ['type_id', 'type_name'];
+
+<------------------Tipos de datos en tablas------------------>
+
+tag:
+$table->id('tag_id');
+$table->string('tag_name');
+$table->string('tag_image');
+$table->text('tag_description');
+$table->timestamps();
+
+Category:
+$table->id('cat_id');
+$table->string('cat_name');
+$table->string('cat_image');
+$table->text('cat_Description');
+$table->timestamps();
+
+Events:
+$table->id('eve_id');
+$table->string('eve_title');
+$table->foreignId('eve_id_course')->constrained('courses', 'cour_id');
+$table->text('eve_description');
+$table->foreignId('id_etiqueta')->constrained('tags', 'tag_id');
+$table->foreignId('id_category')->constrained('categories', 'cat_id');
+$table->string('eve_image');
+$table->date('eve_date');
+$table->time('eve_hour');
+$table->timestamps();
+
+Courses:
+$table->id('cour_id');
+$table->string('cour_name');
+$table->string('cour_teacher');
+$table->string('cour_semester');
+$table->integer('cour_year');
+$table->timestamps();
+
+User:
+$table->id('user_id');
+$table->string('user_name');
+$table->foreignId('user_id_curso')->constrained('courses', 'cour_id');
+$table->string('user_lastname');
+$table->date('user_birth');
+$table->string('user_email')->unique();
+$table->string('user_password');
+$table->string('user_career');
+$table->string('user_studentCarne');
+$table->text('user_illness');
+$table->string('sleep_time');
+$table->string('excercise_time');
+$table->foreignId('id_type')->constrained('types', 'type_id');
+$table->timestamps();
+
+UserhasEvents:
+$table->id();
+$table->foreignId('id_user')->constrained('users', 'user_id');
+$table->foreignId('id_events')->constrained('events', 'eve_id');
+$table->string('estado');
+$table->timestamps();
+
+UserhasCourses
+$table->id();
+$table->foreignId('id_user')->constrained('users', 'user_id');
+$table->foreignId('id_course')->constrained('courses', 'cour_id');
+$table->string('progress');
+$table->timestamps();
+
+type:
+$table->id('type_id');
+$table->string('type_name');
+$table->timestamps();
+
+
+
+
+
