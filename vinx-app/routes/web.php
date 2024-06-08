@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EventController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\EventController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,9 +16,14 @@ use App\Http\Controllers\CourseController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
 
-Route::resource('imc', CourseController::class);
-Route::get('/hola',  [CourseController::class, 'index']);
+// Route::get('/add-course', function () {
+//     return view('createCourse');
+// });
+
+Route::resource('home', HomeController::class);
+Route::resource('course', CourseController::class);
+Route::resource('event', EventController::class);
