@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Event;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class EventController extends Controller
+class EventController 
 {
     /**
      * Display a listing of the resource.
@@ -12,6 +14,23 @@ class EventController extends Controller
     public function index()
     {
         //
+        $eventos = DB::table('events')
+        ->select(
+            'eve_id',
+            'eve_title',
+            'eve_id_course',
+            'eve_description',
+            'id_etiqueta',
+            'id_category',
+            'eve_image',
+            'eve_datetime',
+            DB::raw('DAYNAME(eve_datetime) as dia_semana'), // Agregar el nombre del día de la semana
+            DB::raw('DATE_FORMAT(eve_datetime, "%h:%i %p") as hora'),
+            DB::raw('DAY(eve_datetime) as dia')
+        )
+        ->get();
+
+    return response()->json($eventos);
     }
 
     /**

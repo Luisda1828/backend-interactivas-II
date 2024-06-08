@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 
-class CourseController extends Controller
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class CourseController extends Controllers
 {
     /**
      * Display a listing of the resource.

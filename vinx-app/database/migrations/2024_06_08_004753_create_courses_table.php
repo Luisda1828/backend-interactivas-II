@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id('cour_id');
             $table->string('cour_name');
-            $table->string('cour_teacher');
+            $table->foreignId('cour_teacher_id')->constrained('users', 'user_id');
             $table->string('cour_semester');
             $table->integer('cour_year');
             $table->timestamps();

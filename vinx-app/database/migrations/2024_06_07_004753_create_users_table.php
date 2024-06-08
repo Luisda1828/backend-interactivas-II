@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id('user_id');
             $table->string('user_name');
-            $table->foreignId('user_id_curso')->constrained('courses', 'cour_id');
             $table->string('user_lastname');
             $table->date('user_birth');
             $table->string('user_email')->unique();

@@ -19,8 +19,7 @@ return new class extends Migration
             $table->foreignId('id_etiqueta')->constrained('tags', 'tag_id');
             $table->foreignId('id_category')->constrained('categories', 'cat_id');
             $table->string('eve_image');
-            $table->date('eve_date');
-            $table->time('eve_hour');
+            $table->datetime('eve_datetime');
             $table->timestamps();
         });
     }
