@@ -5,6 +5,7 @@ use App\Models\Event;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class EventController 
 {
@@ -13,7 +14,26 @@ class EventController
      */
     public function index()
     {
-        return view('createEvent');
+        $events=Event::select(
+            'events.eve_id',
+            'events.eve_title',
+            'courses.cour_name',
+            'events.eve_description',
+            'tags.tag_name',
+            'categories.cat_name',
+            'events.eve_image',
+            'events.eve_datetime'
+        )->join('courses','events.eve_id_course','=','courses.cour_id')
+        ->join('tags','events.id_etiqueta','=','tags.tag_id')
+        ->join('categories','events.id_category','=','categories.cat_id')
+        ->orderBy('cour_id','desc')
+        ->Paginate(5);
+
+        // $date = Carbon::parse($events->eve_datetime)->isoFormat('dddd D [/] MMMM [/] YYYY');
+        // $hour=Carbon::parse($events->eve_datetime)->format('h:i A');
+        
+        return view('events',compact('events'));
+        
         
     }
 
@@ -37,12 +57,17 @@ class EventController
     return response()->json($eventos);
     }
 
+    public function allevents(){
+
+        
+    }
+
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        return view('createEvent');
     }
 
     /**

@@ -3,15 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Course;
+use App\Models\User;
 
-class CourseController extends Controller
+class CourseController
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('createCourse');
+        $courses=Course::select(
+            'courses.cour_id',
+            'courses.cour_name',
+            'courses.cour_semester',
+            'courses.cour_year',
+            'users.user_name',
+            'users.user_lastname'
+        )->join('users','courses.cour_teacher_id','=','users.user_id')
+        ->orderBy('cour_id','desc')
+        ->Paginate(5);
+        
+        return view('courses',compact('courses'));
+        
     }
 
     /**
@@ -19,7 +33,8 @@ class CourseController extends Controller
      */
     public function create()
     {
-        //
+        $teachers=User::where('id_type','3')->get();
+        return view('createCourse',compact('teachers'));
     }
 
     /**
@@ -27,7 +42,14 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+         $course=Course::create([
+             'cour_name'=>$request->name,
+             'cour_teacher_id'=>$request->profesor,
+             'cour_semester'=>$request->semestre,
+             'cour_year'=>$request->anno,
+         ]);
+        return redirect()->route('course.index');
     }
 
     /**
@@ -43,7 +65,10 @@ class CourseController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $course = Course::find($id);
+        $teachers=User::where('id_type','3')->get();
+        $teacherId = $course->cour_teacher_id;
+        return view('editCourse', compact('course','teachers','teacherId'));
     }
 
     /**
@@ -51,7 +76,14 @@ class CourseController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $course = Course::find($id);
+        $course->update([
+            'cour_name'=>$request->name,
+            'cour_teacher_id'=>$request->profesor,
+            'cour_semester'=>$request->semestre,
+            'cour_year'=>$request->anno,
+        ]);
+        return redirect()->route('course.index');
     }
 
     /**
@@ -59,6 +91,8 @@ class CourseController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $course = Course::find($id);
+        $course->delete();
+        return redirect()->route('course.index');
     }
 }

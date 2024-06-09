@@ -52,10 +52,10 @@
 
           <div class="w-full flex justify-center mb-4">
             <div class="relative">
-              <img alt="User Profile" class="rounded-full w-20 ring-4 ring-white size-[5rem]" src="https://randomuser.me/api/portraits/women/31.jpg" />
+              <img alt="User Profile" class="rounded-full w-20 ring-4 ring-white size-[5rem]" src="api.dicebear.com/7.x/bottts/png" />
               <div class="absolute top-16 right-1 rounded-full bg-yellow-500 size-8 text-white text-2xl font-bold">
                 <input class="absolute rounded-full size-8 z-30 opacity-0" type="file" name="" id="" />
-                <img class="absolute top-2 right-2 size-4" src={Editwhite} alt="" />
+                <img class="absolute top-2 right-2 size-4" src="{{ asset('storage/images/edit-white.svg') }}" alt="" />
               </div>
             </div>
           </div>
@@ -66,8 +66,8 @@
 
             <div class="flex flex-col gap-y-4">
               <hr class="w-[90vw] text-white bg-white" />
-              <a class="px-4 flex justify-center items-center bg-blue-1 sm:h-[3.5rem] h-[2rem] rounded-full font-main text-blue-3" href="">Progreso de cursos</a>
-              <a class="px-4 flex justify-center items-center bg-blue-1 sm:h-[3.5rem] h-[2rem] rounded-full font-main text-blue-3" href="">Resumen de actividades</a>
+              <a class="px-4 flex justify-center items-center bg-blue-1 sm:h-[3.5rem] h-[2rem] rounded-full font-main text-blue-3" href="{{route('course.index')}}">Registro de cursos </a>
+              <a class="px-4 flex justify-center items-center bg-blue-1 sm:h-[3.5rem] h-[2rem] rounded-full font-main text-blue-3" href="{{route('event.index')}}">Registro de Eventos</a> 
               <hr class="w-[90vw] text-white bg-white" />
               <button class="texto text-white flex justify-center mb-4">Cerrar sesión</button>
             </div>

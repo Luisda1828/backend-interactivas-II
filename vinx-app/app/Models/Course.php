@@ -9,4 +9,5 @@ class Course extends Model
 {
     use HasFactory;
     protected $fillable = ['cour_id', 'cour_name', 'cour_teacher_id', 'cour_semester', 'cour_year'];
+    protected $primaryKey = 'cour_id';
 }
