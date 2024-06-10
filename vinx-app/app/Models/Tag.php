@@ -9,4 +9,5 @@ class Tag extends Model
 {
     use HasFactory;
     protected $fillable = ['tag_id', 'tag_name', 'tag_image', 'tag_description'];
+    protected $primaryKey = 'tag_id';
 }

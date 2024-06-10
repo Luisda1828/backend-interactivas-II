@@ -10,7 +10,6 @@
                 <th class="border-b-[0.5px] border-blue-3/50">Descripcion</th>
                 <th class="border-b-[0.5px] border-blue-3/50">Entrega</th>
                 <th class="border-b-[0.5px] border-blue-3/50">Curso</th>
-                <th class="border-b-[0.5px] border-blue-3/50">Categoria</th>
                 <th class="border-b-[0.5px] border-blue-3/50">Etiqueta</th>
                 <th class="border-b-[0.5px] border-blue-3/50"></th>
             </tr>
@@ -24,7 +23,6 @@
                 <td>{{$event->eve_description}}</td>
                 <td>{{$event->eve_datetime}}</td>
                 <td>{{$event->cour_name}}</td>
-                <td>{{$event->cat_name}}</td>
                 <td>{{$event->tag_name}}</td>
                 <td class="flex gap-x-2">
                     <a class="bg-blue-3 text-white px-8 ring-1 ring-blue-3 py-2 rounded-lg font-bold" href="{{route('event.edit',$event->eve_id)}}">Editar</a>

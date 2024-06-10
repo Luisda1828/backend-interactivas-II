@@ -34,7 +34,7 @@
               <img
                 alt="User Profile"
                 class="absolute rounded-full top-6 right-8  ring-4 ring-white size-[3rem]"
-                src="https://randomuser.me/api/portraits/women/31.jpg"
+                src=""
               />
             </div>
           </div>

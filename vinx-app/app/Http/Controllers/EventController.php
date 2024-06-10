@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 use App\Models\Event;
+use App\Models\Course;
+use App\Models\Tag;
+use App\Models\Category;
+
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class EventController 
 {
@@ -57,17 +62,15 @@ class EventController
     return response()->json($eventos);
     }
 
-    public function allevents(){
-
-        
-    }
-
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('createEvent');
+        $courses=Course::all();
+        $categories=Category::all();
+        $tags=Tag::all();
+        return view('createEvent',compact('courses','categories','tags'));
     }
 
     /**
@@ -75,7 +78,21 @@ class EventController
      */
     public function store(Request $request)
     {
-        //
+            $imageName = $request->imagen->getClientOriginalName();
+            $imageName = str_replace(' ', '_', $imageName);
+            $request->imagen->storeAs('public/images_events', $imageName);
+        
+        
+        $event=Event::create([
+            'eve_title'=>$request->nombre,
+            'eve_id_course'=>$request->curso,
+            'eve_description'=>$request->descripcion,
+            'id_etiqueta'=>$request->etiqueta,
+            'id_category'=>$request->categoria,
+            'eve_image'=>$imageName,
+            'eve_datetime'=>$request->fecha . ' ' . $request->hora
+        ]);
+       return redirect()->route('event.index')->with('success', 'Imagen subida con éxito');
     }
 
     /**
@@ -91,7 +108,11 @@ class EventController
      */
     public function edit(string $id)
     {
-        //
+        $event = Event::find($id);
+        $courses=Course::all();
+        $categories=Category::all();
+        $tags=Tag::all();
+        return view('editEvent', compact('event','courses','categories','tags'));
     }
 
     /**
@@ -99,7 +120,64 @@ class EventController
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        if($request->hasFile('imagen')){
+            $newImageName = $request->imagen->getClientOriginalName();
+            $newImageName = str_replace(' ', '_', $newImageName);
+            if($newImageName==$request->imagenStoradge){
+                     $newImageName = $request->imagenStoradge;
+                 }else{
+                     // Delete the old image from the directory
+                    Storage::delete('public/images_events/' . $request->imagenStoradge);
+                    $request->imagen->storeAs('public/images_events', $newImageName);
+                 }
+                $event = Event::find($id);
+                $event->update([
+                    'eve_title'=>$request->nombre,
+                    'eve_id_course'=>$request->curso,
+                    'eve_description'=>$request->descripcion,
+                    'id_etiqueta'=>$request->etiqueta,
+                    'id_category'=>$request->categoria,
+                    'eve_image'=>$newImageName,
+                    'eve_datetime'=>$request->fecha . ' ' . $request->hora
+                    ]);
+        }else{
+
+            $event = Event::find($id);
+                $event->update([
+                    'eve_title'=>$request->nombre,
+                    'eve_id_course'=>$request->curso,
+                    'eve_description'=>$request->descripcion,
+                    'id_etiqueta'=>$request->etiqueta,
+                    'id_category'=>$request->categoria,
+                    'eve_datetime'=>$request->fecha . ' ' . $request->hora
+                    ]);
+
+        }
+
+        // $newImageName = $request->imagen->getClientOriginalName();
+        // $newImageName = str_replace(' ', '_', $newImageName);
+
+        // if($request->imagen==null || $newImageName==$request->imagenStoradge){
+        //     $newImageName = $request->imagenStoradge;
+        // }else{
+
+        //     // Delete the old image from the directory
+        //     Storage::delete('public/images_events/' . $request->imagenStoradge);
+        //     $path = $request->imagen->storeAs('storage/public/images_events', $newImageName);
+        // }
+
+        // $event = Event::find($id);
+        // $event->update([
+        //     'eve_title'=>$request->nombre,
+        //     'eve_id_course'=>$request->curso,
+        //     'eve_description'=>$request->descripcion,
+        //     'id_etiqueta'=>$request->etiqueta,
+        //     'id_category'=>$request->categoria,
+        //     'eve_image'=>$newImageName,
+        //     'eve_datetime'=>$request->fecha . ' ' . $request->hora
+        // ]);
+        return redirect()->route('event.index');
     }
 
     /**
@@ -107,6 +185,9 @@ class EventController
      */
     public function destroy(string $id)
     {
-        //
+        $event = Event::find($id);
+        Storage::delete('public/images_events/' . $event->eve_image);
+        $event->delete();
+        return redirect()->route('event.index');
     }
 }
