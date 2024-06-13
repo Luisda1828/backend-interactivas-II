@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,4 @@ use App\Http\Controllers\EventController;
 Route::resource('home', HomeController::class);
 Route::resource('course', CourseController::class);
 Route::resource('event', EventController::class);
+Route::resource('user', UserController::class);

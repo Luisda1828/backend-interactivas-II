@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,3 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/events/all',  [EventController::class, 'apiEvent']);
+
+Route::post('/user/create', [UserController::class, 'store']);
+Route::post('/user/auth', [UserController::class, 'userAuth']);

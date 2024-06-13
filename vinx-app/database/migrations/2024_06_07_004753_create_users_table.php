@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('user_id');
             $table->string('user_name');
             $table->string('user_lastname');
-            $table->date('user_birth');
+            $table->file('user_img');
             $table->string('user_email')->unique();
             $table->string('user_password');
             $table->string('user_career');

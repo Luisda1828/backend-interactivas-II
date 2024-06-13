@@ -154,29 +154,6 @@ class EventController
                     ]);
 
         }
-
-        // $newImageName = $request->imagen->getClientOriginalName();
-        // $newImageName = str_replace(' ', '_', $newImageName);
-
-        // if($request->imagen==null || $newImageName==$request->imagenStoradge){
-        //     $newImageName = $request->imagenStoradge;
-        // }else{
-
-        //     // Delete the old image from the directory
-        //     Storage::delete('public/images_events/' . $request->imagenStoradge);
-        //     $path = $request->imagen->storeAs('storage/public/images_events', $newImageName);
-        // }
-
-        // $event = Event::find($id);
-        // $event->update([
-        //     'eve_title'=>$request->nombre,
-        //     'eve_id_course'=>$request->curso,
-        //     'eve_description'=>$request->descripcion,
-        //     'id_etiqueta'=>$request->etiqueta,
-        //     'id_category'=>$request->categoria,
-        //     'eve_image'=>$newImageName,
-        //     'eve_datetime'=>$request->fecha . ' ' . $request->hora
-        // ]);
         return redirect()->route('event.index');
     }
 
