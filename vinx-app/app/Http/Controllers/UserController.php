@@ -29,7 +29,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $salt = md5('EstoEsUnSalt');
-        $radom = rand(1, 3);
+        $radom = mt_rand(1, 3);
         switch ($radom) {
             case 1:
                 $carrera = 'Informática y Tecnologia Multimedia';
@@ -38,7 +38,7 @@ class UserController extends Controller
             case 3:
                 $carrera = 'Ingeniería en Electrica';
             }
-            $gen=rand(1,3);
+            $gen = mt_rand(1, 3);
             $num=rand(10000,39999);
             
             switch ($gen) {
@@ -52,9 +52,10 @@ class UserController extends Controller
 
         $newUser=User::create([
             'user_name'=>$request->nombre,
-            'user_birth'=>'2002-10-10',
             'user_lastname'=>$request->apellido,
+            'user_user_name'=>$request->usuario,
             'user_email'=>$request->correo,
+            'user_img'=>$request->image,
             'user_password'=>md5($request->contrasena.''.$salt),
             'user_career'=>$carrera,
             'user_studentCarne'=>$carne,
@@ -65,23 +66,6 @@ class UserController extends Controller
         ]);
 
         return 'Usuario registrado con exito';
-    }
-
-    public function userAuth(Request $request){
-        $salt = md5('EstoEsUnSalt');
-        $user=User::select('user_name','user_password')->where('user_name',$request->usuario)->first();
-        if($user!=null){
-
-            if($user->user_password==md5($request->contrasena.''.$salt)){
-                return 'Usuario autenticado';
-            }else{
-                return 'Usuario o contraseña incorrectos';
-            }
-            
-        }else{
-            return 'Usuario o contraseña incorrectos';
-        }
-        
     }
 
     /**

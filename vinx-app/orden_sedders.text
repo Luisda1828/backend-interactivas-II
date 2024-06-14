@@ -2,5 +2,5 @@ php artisan db:seed --class=TypeSeeder
 php artisan db:seed --class=UserSeeder    
 php artisan db:seed --class=CourseSeeder
 php artisan db:seed --class=CategorySeeder
-//IMPORTANTE antes de almacenar los eventos crear una tag con el id=1 //IMPORTANTE
 php artisan db:seed --class=EventSeeder 
+//IMPORTANTE antes de almacenar los eventos crear una tag con el id=1 //IMPORTANTE

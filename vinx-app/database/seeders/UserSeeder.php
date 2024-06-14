@@ -17,7 +17,8 @@ class UserSeeder extends Seeder
         User::create([
             'user_name' => 'Alice',
             'user_lastname' => 'Johnson',
-            'user_birth' => '1998-05-12',
+            'user_user_name' => 'AliceJohnson',
+            'user_img' => 'https://randomuser.me/api/port',
             'user_email' => 'alice.johnson@example.com',
             'user_password' => bcrypt('password123'),
             'user_career' => 'Computer Science',
@@ -31,7 +32,8 @@ class UserSeeder extends Seeder
         User::create([
             'user_name' => 'Bob',
             'user_lastname' => 'Smith',
-            'user_birth' => '2000-09-20',
+            'user_user_name' => 'BobSmith',
+            'user_img' => 'https://randomuser.me/api/port',
             'user_email' => 'bob.smith@example.com',
             'user_password' => bcrypt('securepassword'),
             'user_career' => 'Mechanical Engineering',
@@ -45,7 +47,8 @@ class UserSeeder extends Seeder
         User::create([
             'user_name' => 'Charlie',
             'user_lastname' => 'Brown',
-            'user_birth' => '1999-12-01',
+            'user_user_name' => 'CharlieBrown',
+            'user_img' => 'https://randomuser.me/api/port',
             'user_email' => 'charlie.brown@example.com',
             'user_password' => bcrypt('mypassword'),
             'user_career' => 'Graphic Design',
