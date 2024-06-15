@@ -15,23 +15,30 @@ class CategorySeeder extends Seeder
     {
         Category::create([
            
-            'cat_name' => 'Evento',
-            'cat_image' => '',
-            'cat_Description' => '',
+            'cat_name' => 'Carrera',
+            
+            
         ]);
 
         Category::create([
            
-            'cat_name' => 'Tarea',
-            'cat_image' => '',
-            'cat_Description' => '',
+            'cat_name' => 'Curso',
+            
+            
         ]);
 
         Category::create([
            
-            'cat_name' => 'Comunicado',
-            'cat_image' => '',
-            'cat_Description' => '',
+            'cat_name' => 'Universidad',
+            
+            
+        ]);
+
+        Category::create([
+           
+            'cat_name' => 'Estudiante',
+            
+            
         ]);
     }
 }
