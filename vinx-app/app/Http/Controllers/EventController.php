@@ -5,20 +5,23 @@ use App\Models\Event;
 use App\Models\Course;
 use App\Models\Tag;
 use App\Models\Category;
-
+use App\Models\UserHasCourse;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 
+
 class EventController 
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
+       
+
         $events=Event::select(
             'events.eve_id',
             'events.eve_title',
@@ -42,7 +45,45 @@ class EventController
         
     }
 
-    public function apiEvent(){
+    public function apiEvent($id){
+       /*  $userCourses = UserHasCourse::where('id_user', 1)
+                                    ->with(['course.events'])
+                                    ->get(); */
+
+                                    $userCourses = UserHasCourse::where('id_user', $id)
+                                    ->with(['course' => function($query) {
+                                        $query->select('cour_id', 'cour_name', 'cour_teacher_id', 'cour_semester', 'cour_year')
+                                              ->with(['events' => function($subQuery) {
+                                                  $subQuery->select('eve_id', 'eve_title', 'eve_id_course', 'eve_description', 'id_etiqueta', 'id_category', 'eve_image', 'eve_datetime');
+                                              }]);
+                                    }])
+                                    ->get();
+
+                                    $formattedCourses = [];
+                                    foreach ($userCourses as $userCourse) {
+                                        $user_id = $userCourse->id_user;
+                                        $courseData = [
+                                            'cour_id' => $userCourse->course->cour_id,
+                                            'cour_name' => $userCourse->course->cour_name,
+                                            'cour_teacher_id' => $userCourse->course->cour_teacher_id,
+                                            'cour_semester' => $userCourse->course->cour_semester,
+                                            'cour_year' => $userCourse->course->cour_year,
+                                            'events' => $userCourse->course->events,
+                                        ];
+                                
+                                        if (!isset($formattedCourses[$user_id])) {
+                                            $formattedCourses[$user_id] = [
+                                                'id_user' => $user_id,
+                                                'courses' => [],
+                                            ];
+                                        }
+                                
+                                        $formattedCourses[$user_id]['courses'][] = $courseData;
+                                    }
+                                
+                                    // Convertir el array asociativo en un array indexado
+                                    $formattedCourses = array_values($formattedCourses);
+      
         $eventos = DB::table('events')
         ->select(
             'eve_id',
@@ -53,13 +94,13 @@ class EventController
             'id_category',
             'eve_image',
             'eve_datetime',
-            DB::raw('DAYNAME(eve_datetime) as dia_semana'), // Agregar el nombre del día de la semana
+            DB::raw('DAYNAME(eve_datetime) as dia_semana'),
             DB::raw('DATE_FORMAT(eve_datetime, "%h:%i %p") as hora'),
             DB::raw('DAY(eve_datetime) as dia')
         )
         ->get();
 
-    return response()->json($eventos);
+    return response()->json($formattedCourses);
     }
 
     /**
