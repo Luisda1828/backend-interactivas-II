@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
 
 class UserController extends Controller
 {
@@ -28,20 +30,27 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $salt = md5('EstoEsUnSalt');
-        $radom = mt_rand(1, 3);
-        switch ($radom) {
+        // Store the image in public storage
+        $imageName = $request->image->getClientOriginalName();
+        $imageName = str_replace(' ', '_', $imageName);
+        $request->image->storeAs('public/images_events', $imageName);
+        
+        
+        switch (rand(1, 3)) {
             case 1:
                 $carrera = 'Informática y Tecnologia Multimedia';
             case 2:
                 $carrera = 'Medicina y Cirugía';
             case 3:
                 $carrera = 'Ingeniería en Electrica';
+            default:
+                $carrera = 'Informática y Tecnologia Multimedia';
             }
-            $gen = mt_rand(1, 3);
+
+            
             $num=rand(10000,39999);
             
-            switch ($gen) {
+            switch (rand(1, 3)) {
                 case 1:
                     $carne = 'A'.$num;
                 case 2:
@@ -55,8 +64,8 @@ class UserController extends Controller
             'user_lastname'=>$request->apellido,
             'user_user_name'=>$request->usuario,
             'user_email'=>$request->correo,
-            'user_img'=>$request->image,
-            'user_password'=>md5($request->contrasena.''.$salt),
+            'user_img'=>$imageName,
+            'user_password' => Hash::make($request->contrasena),
             'user_career'=>$carrera,
             'user_studentCarne'=>$carne,
             'user_illness'=>$request->user_illness.' '.$request->disease_name,
@@ -65,7 +74,16 @@ class UserController extends Controller
             'id_type'=>2
         ]);
 
-        return 'Usuario registrado con exito';
+        return view('confirm');
+    }
+
+    public function userToken(Request $request){
+
+        $user = $request->user();
+        $user->image_url = url('storage/images_events/' . $user->user_img);
+        
+        return response()->json(
+            $user);
     }
 
     /**
