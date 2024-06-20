@@ -9,4 +9,9 @@ class UserHasEvent extends Model
 {
     use HasFactory;
     protected $fillable = ['id', 'id_user', 'id_events', 'estado'];
+
+    public function events()
+    {
+        return $this->belongsToMany(Event::class, 'UserHasEvents', 'id_user', 'id_events');
+    }
 }

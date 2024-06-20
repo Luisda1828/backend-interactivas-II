@@ -16,4 +16,7 @@ class Event extends Model
     {
         return $this->belongsTo(Course::class, 'eve_id_course');
     }
+
+    
+    
 }

@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Tag;
 use App\Models\Category;
 use App\Models\UserHasCourse;
+use App\Models\UserHasEvent;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +19,7 @@ class EventController
     /**
      * Display a listing of the resource.
      */
-    public function index($id)
+    public function index()
     {
        
 
@@ -46,61 +47,77 @@ class EventController
     }
 
     public function apiEvent($id){
-       /*  $userCourses = UserHasCourse::where('id_user', 1)
-                                    ->with(['course.events'])
-                                    ->get(); */
+      
 
-                                    $userCourses = UserHasCourse::where('id_user', $id)
-                                    ->with(['course' => function($query) {
-                                        $query->select('cour_id', 'cour_name', 'cour_teacher_id', 'cour_semester', 'cour_year')
-                                              ->with(['events' => function($subQuery) {
-                                                  $subQuery->select('eve_id', 'eve_title', 'eve_id_course', 'eve_description', 'id_etiqueta', 'id_category', 'eve_image', 'eve_datetime');
-                                              }]);
-                                    }])
+                                $userCourses = UserHasCourse::where('id_user', $id)
+                                ->with(['course' => function($query) {
+                                    $query->select('cour_id', 'cour_name', 'cour_teacher_id', 'cour_semester', 'cour_year');
+                                }])
+                                ->get();
+
+                                    $userEvents = DB::table('user_has_events')
+                                    ->join('events', 'user_has_events.id_events', '=', 'events.eve_id')
+                                    ->where('user_has_events.id_user', $id)
+                                    ->select(
+                                        'eve_id',
+                                        'eve_title',
+                                        'eve_id_course',
+                                        'eve_description',
+                                        'id_etiqueta',
+                                        'id_category',
+                                        'eve_image',
+                                        'eve_datetime',
+                                        DB::raw('DAYNAME(eve_datetime) as dia_semana'),
+                                        DB::raw('DATE_FORMAT(eve_datetime, "%h:%i %p") as hora'),
+                                        DB::raw('DAY(eve_datetime) as dia')
+                                    )
                                     ->get();
 
                                     $formattedCourses = [];
                                     foreach ($userCourses as $userCourse) {
-                                        $user_id = $userCourse->id_user;
                                         $courseData = [
                                             'cour_id' => $userCourse->course->cour_id,
                                             'cour_name' => $userCourse->course->cour_name,
                                             'cour_teacher_id' => $userCourse->course->cour_teacher_id,
                                             'cour_semester' => $userCourse->course->cour_semester,
                                             'cour_year' => $userCourse->course->cour_year,
-                                            'events' => $userCourse->course->events,
+                                        ];
+
+                                        $formattedCourses[] = $courseData;
+                                    }
+
+                                    $userDateTime = Carbon::now()->toDateTimeString();
+
+                                    
+                                        $closestEvent = Event::where('eve_datetime', '>', $userDateTime)
+                                        ->orderBy('eve_datetime', 'asc')
+                                        ->select('eve_id', 'eve_title', 'eve_description', 'eve_datetime') // Aquí especificas los campos que quieres seleccionar
+                                        ->first();
+
+                                        $dateTime = Carbon::parse($closestEvent->eve_datetime);
+
+                                        // Formatear la fecha solo con día de mes: "d de F" (22 de junio)
+                                        $formattedDate = $dateTime->isoFormat('D [de] MMMM');
+                                    
+                                        // Formatear la hora en formato de 12 horas con AM/PM: "h:mm A" (10:25 PM)
+                                        $formattedTime = $dateTime->format('h:i A');
+                                    
+                                        // Crear el array con la estructura requerida
+                                        $formattedEvent = [
+                                            'eve_id' => $closestEvent->eve_id,
+                                            'eve_title' => $closestEvent->eve_title,
+                                            'eve_description' => $closestEvent->eve_description,
+                                            'date' => $formattedDate,
+                                            'time' => $formattedTime
                                         ];
                                 
-                                        if (!isset($formattedCourses[$user_id])) {
-                                            $formattedCourses[$user_id] = [
-                                                'id_user' => $user_id,
-                                                'courses' => [],
-                                            ];
-                                        }
-                                
-                                        $formattedCourses[$user_id]['courses'][] = $courseData;
-                                    }
-                                
-                                    // Convertir el array asociativo en un array indexado
-                                    $formattedCourses = array_values($formattedCourses);
-      
-        $eventos = DB::table('events')
-        ->select(
-            'eve_id',
-            'eve_title',
-            'eve_id_course',
-            'eve_description',
-            'id_etiqueta',
-            'id_category',
-            'eve_image',
-            'eve_datetime',
-            DB::raw('DAYNAME(eve_datetime) as dia_semana'),
-            DB::raw('DATE_FORMAT(eve_datetime, "%h:%i %p") as hora'),
-            DB::raw('DAY(eve_datetime) as dia')
-        )
-        ->get();
+                                    $response = [
+                                        'courses' => $formattedCourses,
+                                        'events' => $userEvents,
+                                        'nextEvent' => $formattedEvent,
+                                    ];
 
-    return response()->json($formattedCourses);
+    return response()->json($response);
     }
 
     /**
