@@ -5,6 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserHasCourseController;
+use App\Http\Controllers\UserHasEventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +31,5 @@ Route::resource('home', HomeController::class);
 Route::resource('course', CourseController::class);
 Route::resource('event', EventController::class);
 Route::resource('user', UserController::class);
+Route::resource('userHasCourse', UserHasCourseController::class);
+Route::resource('userHasEvent', UserHasEventController::class);

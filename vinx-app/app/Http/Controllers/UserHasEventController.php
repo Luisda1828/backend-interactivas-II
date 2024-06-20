@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Event;
+use App\Models\UserHasCourses;
+use App\Models\UserHasEvent;
+
 
 class UserHasEventController extends Controller
 {
@@ -11,7 +15,8 @@ class UserHasEventController extends Controller
      */
     public function index()
     {
-        //
+       //
+        
     }
 
     /**
@@ -27,7 +32,7 @@ class UserHasEventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

@@ -27,7 +27,6 @@ Route::get('/events/all',  [EventController::class, 'apiEvent']);
 
 Route::post('/user/create', [UserController::class, 'store']);
 
-
 Route::post('/user/auth', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function(){
     Route::get('/jwt/cookie', [AuthController::class, 'jwt_cookie']);

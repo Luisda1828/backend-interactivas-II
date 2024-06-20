@@ -68,6 +68,7 @@
               <hr class="w-[90vw] text-white bg-white" />
               <a class="px-4 flex justify-center items-center bg-blue-1 sm:h-[3.5rem] h-[2rem] rounded-full font-main text-blue-3" href="{{route('course.index')}}">Registro de cursos </a>
               <a class="px-4 flex justify-center items-center bg-blue-1 sm:h-[3.5rem] h-[2rem] rounded-full font-main text-blue-3" href="{{route('event.index')}}">Registro de Eventos</a> 
+              <a class="px-4 flex justify-center items-center bg-blue-1 sm:h-[3.5rem] h-[2rem] rounded-full font-main text-blue-3" href="{{route('userHasCourse.index')}}">Asignar curso a estudiantes</a> 
               <hr class="w-[90vw] text-white bg-white" />
               <button class="texto text-white flex justify-center mb-4">Cerrar sesión</button>
             </div>
