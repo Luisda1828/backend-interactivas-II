@@ -155,6 +155,16 @@ return response()->json($response);
             'eve_image'=>$imageName,
             'eve_datetime'=>$request->fecha . ' ' . $request->hora
         ]);
+
+        $userIncourse = UserHasCourse::where('id_course', $request->curso)->get();
+        foreach ($userIncourse as $user) {
+            UserHasEvent::create([
+                'id_user' => $user->id_user,
+                'id_events' => $event->eve_id,
+                'estado' => 'Incompleto'
+            ]);
+        }
+
        return redirect()->route('event.index')->with('success', 'Imagen subida con éxito');
     }
 

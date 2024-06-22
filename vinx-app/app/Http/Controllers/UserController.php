@@ -86,6 +86,21 @@ class UserController extends Controller
             $user);
     }
 
+    public function forgotPassword(Request $request) {
+        $user = User::where('user_email', $request->correo)->first();
+        $tempPassword = 'Vinx_'.rand(1000, 9999);
+        $msg='Usuario no encontrado o sin registrar';
+        if ($user) {
+            $user->user_password = Hash::make($tempPassword);
+            $user->save();
+            $msg = 'Contraseña actualizada correctamente';
+            return view('forgotPass', compact('tempPassword', 'msg'));
+        } else {
+            return view('forgotPass', compact('msg'));
+        }
+        
+    }
+
     /**
      * Display the specified resource.
      */
