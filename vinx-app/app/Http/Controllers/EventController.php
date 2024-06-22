@@ -55,23 +55,28 @@ class EventController extends Controller
         }])
         ->get();
 
-            $userEvents = DB::table('user_has_events')
-            ->join('events', 'user_has_events.id_events', '=', 'events.eve_id')
-            ->where('user_has_events.id_user', $id)
-            ->select(
-                'eve_id',
-                'eve_title',
-                'eve_id_course',
-                'eve_description',
-                'id_etiqueta',
-                'id_category',
-                'eve_image',
-                'eve_datetime',
-                DB::raw('DAYNAME(eve_datetime) as dia_semana'),
-                DB::raw('DATE_FORMAT(eve_datetime, "%h:%i %p") as hora'),
-                DB::raw('DAY(eve_datetime) as dia')
-            )
-            ->get();
+        $userEvents = DB::table('user_has_events')
+        ->join('events', 'user_has_events.id_events', '=', 'events.eve_id')
+        ->leftJoin('tags', 'events.id_etiqueta', '=', 'tags.tag_id')
+        ->leftJoin('categories', 'events.id_category', '=', 'categories.cat_id')
+        ->leftJoin('courses', 'events.eve_id_course', '=', 'courses.cour_id')
+        ->where('user_has_events.id_user', $id)
+        ->select(
+            'eve_id',
+            'eve_title',
+            'eve_description',
+            'tags.tag_name as etiqueta_nombre',  
+            'categories.cat_name as categoria_nombre', 
+            'eve_id_course',
+            'courses.cour_name as curso_nombre', 
+            'eve_image',
+            'user_has_events.estado',
+            'eve_datetime',
+            DB::raw('DAYNAME(eve_datetime) as dia_semana'),
+            DB::raw('DATE_FORMAT(eve_datetime, "%h:%i %p") as hora'),
+            DB::raw('DAY(eve_datetime) as dia')
+        )
+        ->get();
 
             $formattedCourses = [];
             foreach ($userCourses as $userCourse) {
