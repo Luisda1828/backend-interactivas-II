@@ -24,6 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/courses/{id} ',  [EventController::class, 'apiEvent']);
 Route::get('/events/all',  [EventController::class, 'apiEvent']);
+Route::post('/user/forgotPassword', [UserController::class, 'forgotPassword']);
 
 Route::post('/user/create', [UserController::class, 'store']);
 
