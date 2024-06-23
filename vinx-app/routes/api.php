@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 /* Route::get('/events/all',  [EventController::class, 'apiEvent']); */
 
 Route::get('/courses/{id} ',  [EventController::class, 'apiEvent']);
+Route::get('/events/updateState/{idEvent}/{idUser}',  [EventController::class, 'apiUdateState']);
 Route::get('/events/all',  [EventController::class, 'apiEvent']);
 Route::post('/user/forgotPassword', [UserController::class, 'forgotPassword']);
 

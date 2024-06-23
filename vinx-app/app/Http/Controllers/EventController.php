@@ -240,4 +240,26 @@ return response()->json($response);
         $event->delete();
         return redirect()->route('event.index');
     }
+
+
+    
+    public function apiUdateState(Request $request, $idEvent, $idUser)
+    {
+        $event = UserHasEvent::where('id_events', $idEvent)
+        ->where('id_user', $idUser)
+        ->first();
+        
+        if ($event->estado == 'Completada') {
+            $event->update([
+                'estado' => 'InProgress'
+            ]);
+        } else {
+            $event->update([
+                'estado' => 'Completada'
+            ]);
+        }
+
+        return response()->json(['message' => 'Estado actualizado']);
+    }
+    
 }
