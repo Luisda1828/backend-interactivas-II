@@ -101,6 +101,29 @@ class UserController extends Controller
         
     }
 
+    public function changeUserPassword(Request $request) {
+        $user = User::where('user_id', $request->id)->first();
+        //Hash::check($request->password, $user->user_password)
+        if(Hash::check($request->password, $user->user_password)){
+            if($request->user ==$user->user_user_name){
+                $user->user_password = Hash::make($request->newpassword);
+                $user->save();
+                return redirect('http://localhost:5173/vinx');
+                //return response()->json(['message' => 'Contraseña actualizada correctamente']);
+            }else{
+                $user->user_user_name = $request->user;
+                $user->user_password = Hash::make($request->newpassword);
+                $user->save();
+                return redirect('http://localhost:5173/vinx');
+                //return response()->json(['message' => 'Contraseña y usuario actualizados correctamente']);
+            }
+        }else{
+            
+            return response()->json(['message' => 'Datos incorrectos']);
+        }
+        
+    }
+
     /**
      * Display the specified resource.
      */

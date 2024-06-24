@@ -26,6 +26,7 @@ Route::get('/courses/{id} ',  [EventController::class, 'apiEvent']);
 Route::get('/events/updateState/{idEvent}/{idUser}',  [EventController::class, 'apiUdateState']);
 Route::get('/events/all',  [EventController::class, 'apiEvent']);
 Route::post('/user/forgotPassword', [UserController::class, 'forgotPassword']);
+Route::post('/user/changeUserPassword', [UserController::class, 'changeUserPassword']);
 
 Route::post('/user/create', [UserController::class, 'store']);
 
