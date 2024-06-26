@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     use HasFactory;
-    protected $fillable = ['eve_id', 'eve_title', 'eve_id_course', 'eve_description', 'id_etiqueta', 'id_category', 'eve_image', 'eve_datetime'];
+    protected $fillable = ['eve_id', 'eve_title', 'eve_id_course', 'eve_description', 'id_etiqueta', 'id_category', 'eve_image', 'eve_datetime','expired'];
     protected $primaryKey = 'eve_id';
 
 
@@ -16,6 +16,10 @@ class Event extends Model
     {
         return $this->belongsTo(Course::class, 'eve_id_course');
     }
+
+    protected $attributes = [
+        'expired' => false, // Valor predeterminado para 'expired'
+    ];
 
     
     
