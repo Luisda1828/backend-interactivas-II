@@ -40,7 +40,8 @@ class HomeController
      */
     public function show(string $id)
     {
-        //
+        
+        return view('index',compact('id'));
     }
 
     /**
