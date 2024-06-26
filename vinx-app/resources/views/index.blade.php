@@ -1,6 +1,8 @@
 @extends('layouts.layout')
 
 @section('content')
+
+
 <h1 class="text-center text-blue-3 text-main text-titulo font-pesado">Gestion de cursos y eventos</h1>
     <div class="grid md:grid-cols-2 grid-cols-1 gap-4 justify-center md:p-[rem] p-[2rem]">
         <div class="flex flex-col items-center gap-y-8 md:p-[rem] p-[2rem]">

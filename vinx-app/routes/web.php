@@ -7,6 +7,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserHasCourseController;
 use App\Http\Controllers\UserHasEventController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +20,9 @@ use App\Http\Controllers\UserHasEventController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('index');
-// });
+ Route::get('/', function () {
+     return view('login');
+ });
 
 // Route::get('/add-course', function () {
 //     return view('createCourse');
@@ -33,3 +34,8 @@ Route::resource('event', EventController::class);
 Route::resource('user', UserController::class);
 Route::resource('userHasCourse', UserHasCourseController::class);
 Route::resource('userHasEvent', UserHasEventController::class);
+Route::resource('auth', AuthController::class);
+
+
+
+

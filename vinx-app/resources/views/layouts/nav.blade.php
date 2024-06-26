@@ -33,8 +33,8 @@
             <div class="flex justify-center items-center">
               <img
                 alt="User Profile"
-                class="absolute rounded-full top-6 right-8  ring-4 ring-white size-[3rem]"
-                src=""
+                class="absolute rounded-full top-6 right-8 size-[3rem]"
+                src="{{ asset('storage/images/sideMenu.svg') }}"
               />
             </div>
           </div>
@@ -70,7 +70,7 @@
               <a class="px-4 flex justify-center items-center bg-blue-1 sm:h-[3.5rem] h-[2rem] rounded-full font-main text-blue-3" href="{{route('event.index')}}">Registro de Eventos</a> 
               <a class="px-4 flex justify-center items-center bg-blue-1 sm:h-[3.5rem] h-[2rem] rounded-full font-main text-blue-3" href="{{route('userHasCourse.index')}}">Asignar curso a estudiantes</a> 
               <hr class="w-[90vw] text-white bg-white" />
-              <button class="texto text-white flex justify-center mb-4">Cerrar sesión</button>
+              <a class="texto text-white flex justify-center mb-4" href="http://localhost:5173/">Cerrar sesión</a>
             </div>
           </div>
         </div>
