@@ -93,7 +93,7 @@ class UserController extends Controller
             }
         }else{
             
-            return response()->json(['message' => 'Datos incorrectos']);
+            return redirect('http://localhost:5173/vinx')->with('message', 'Datos incorrectos');
         }
         
     }
