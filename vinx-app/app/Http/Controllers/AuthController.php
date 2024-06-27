@@ -55,27 +55,7 @@ class AuthController extends Controller
      */
     public function store(Request $request)
     {
-        // $user=User::select('user_user_name','user_password')->where('user_user_name',$request->usuario)->first();
-
-        // if($user){
-        //     if(!Hash::check($request->contrasena, $user->user_password)){
-        //         $message='Usuario o contraseña incorrectos';
-        //         return view('login', compact('message'));
-        //     }
-        //     $user=User::select('user_id', 'user_name')->where('user_user_name',$request->usuario)->first();
-        //     $type=User::select('id_type')->where('user_user_name',$request->usuario)->first();
-        //     $token = $user->createToken('Token')->plainTextToken;
-    
-        //     if($type->id_type==2){
-        //         $message='No tienes permitido ingresar a esta sección';
-        //         return view('login', compact('message'));
-        //     }
-        //     return redirect()->route('home.index')->withCookie(cookie('cookieAdm', $token));
-        // }else{
-        //     $message='Usuario o contraseña incorrectos';
-        //         return view('login', compact('message'));
-        // }
-
+        
         $user = User::select('user_user_name', 'user_password')->where('user_user_name', $request->usuario)->first();
 
     if ($user) {
