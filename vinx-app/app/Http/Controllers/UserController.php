@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 
 class UserController extends Controller
@@ -34,30 +35,6 @@ class UserController extends Controller
         $imageName = $request->image->getClientOriginalName();
         $imageName = str_replace(' ', '_', $imageName);
         $request->image->storeAs('public/images_events', $imageName);
-        
-        
-        switch (rand(1, 3)) {
-            case 1:
-                $carrera = 'Informática y Tecnologia Multimedia';
-            case 2:
-                $carrera = 'Medicina y Cirugía';
-            case 3:
-                $carrera = 'Ingeniería en Electrica';
-            default:
-                $carrera = 'Informática y Tecnologia Multimedia';
-            }
-
-            
-            $num=rand(10000,39999);
-            
-            switch (rand(1, 3)) {
-                case 1:
-                    $carne = 'A'.$num;
-                case 2:
-                    $carne = 'B'.$num;
-                case 3:
-                    $carne = 'C'.$num;
-            }
 
         $newUser=User::create([
             'user_name'=>$request->nombre,
@@ -66,8 +43,8 @@ class UserController extends Controller
             'user_email'=>$request->correo,
             'user_img'=>$imageName,
             'user_password' => Hash::make($request->contrasena),
-            'user_career'=>$carrera,
-            'user_studentCarne'=>$carne,
+            'user_career'=>$request->carrera,
+            'user_studentCarne'=>$request->carnet,
             'user_illness'=>$request->user_illness.' '.$request->disease_name,
             'sleep_time'=>$request->sleep,
             'excercise_time'=>$request->activity,
@@ -103,25 +80,36 @@ class UserController extends Controller
 
     public function changeUserPassword(Request $request) {
         $user = User::where('user_id', $request->id)->first();
-        //Hash::check($request->password, $user->user_password)
         if(Hash::check($request->password, $user->user_password)){
             if($request->user ==$user->user_user_name){
                 $user->user_password = Hash::make($request->newpassword);
                 $user->save();
                 return redirect('http://localhost:5173/vinx');
-                //return response()->json(['message' => 'Contraseña actualizada correctamente']);
             }else{
                 $user->user_user_name = $request->user;
                 $user->user_password = Hash::make($request->newpassword);
                 $user->save();
                 return redirect('http://localhost:5173/vinx');
-                //return response()->json(['message' => 'Contraseña y usuario actualizados correctamente']);
             }
         }else{
             
             return response()->json(['message' => 'Datos incorrectos']);
         }
         
+    }
+
+
+    public function updateProfileImg(Request $request) {
+         $user = User::where('user_id', $request->userId)->first();
+         Storage::delete('public/images_events/' . $user->user_img);
+         $imageName = $request->newImg->getClientOriginalName();
+         $imageName = str_replace(' ', '_', $imageName);
+         $request->newImg->storeAs('public/images_events', $imageName);
+         $user->user_img = $imageName;
+         $user->save();
+         return redirect('http://localhost:5173/vinx');
+        
+        //return $request;
     }
 
     /**
