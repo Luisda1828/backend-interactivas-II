@@ -41,7 +41,7 @@ class UserSeeder extends Seeder
             'user_illness' => 'None',
             'sleep_time' => '8 hours',
             'excercise_time' => '30 minutes',
-            'id_type' => 1, 
+            'id_type' => 2, 
         ]);
         
         User::create([
@@ -56,7 +56,7 @@ class UserSeeder extends Seeder
             'user_illness' => 'None',
             'sleep_time' => '7 hours',
             'excercise_time' => '45 minutes',
-            'id_type' => 1,
+            'id_type' => 2,
         ]);
         
         User::create([
@@ -71,7 +71,7 @@ class UserSeeder extends Seeder
             'user_illness' => 'Diabetes',
             'sleep_time' => '6 hours',
             'excercise_time' => '60 minutes',
-            'id_type' => 1,
+            'id_type' => 2,
         ]);
         
         User::create([
@@ -86,7 +86,7 @@ class UserSeeder extends Seeder
             'user_illness' => 'None',
             'sleep_time' => '7.5 hours',
             'excercise_time' => '45 minutes',
-            'id_type' => 1,
+            'id_type' => 2,
         ]);
         
         User::create([
@@ -101,7 +101,7 @@ class UserSeeder extends Seeder
             'user_illness' => 'Asthma',
             'sleep_time' => '8 hours',
             'excercise_time' => '30 minutes',
-            'id_type' => 1,
+            'id_type' => 2,
         ]);
         
     }

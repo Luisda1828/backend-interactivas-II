@@ -17,8 +17,8 @@
         }
     </script>
 
+    
     <div class='relative w-screen'>
-
     <div class="relative">
       <input
         class="opacity-0 absolute  right-4 sm:right-8 top-6  size-[3rem] z-10"
@@ -49,7 +49,7 @@
             </div>
             <h1 class="absolute right-3 sm:right-8 top-8 text-white text-2xl font-bold cursor-pointer">X</h1>
           </div>
-
+<!-- 
           <div class="w-full flex justify-center mb-4">
             <div class="relative">
               <img alt="User Profile" class="rounded-full w-20 ring-4 ring-white size-[5rem]" src="api.dicebear.com/7.x/bottts/png" />
@@ -58,19 +58,22 @@
                 <img class="absolute top-2 right-2 size-4" src="{{ asset('storage/images/edit-white.svg') }}" alt="" />
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="flex flex-col gap-y-4">
             <!-- <ProfileDropDown /> -->
-            @include('layouts.profileDropDown')
+            <!-- @include('layouts.profileDropDown') -->
+            <div class="h-[2rem]">
+              
+            </div>
 
             <div class="flex flex-col gap-y-4">
-              <hr class="w-[90vw] text-white bg-white" />
+              <!-- <hr class="w-[90vw] text-white bg-white" /> -->
               <a class="px-4 flex justify-center items-center bg-blue-1 sm:h-[3.5rem] h-[2rem] rounded-full font-main text-blue-3" href="{{route('course.index')}}">Registro de cursos </a>
               <a class="px-4 flex justify-center items-center bg-blue-1 sm:h-[3.5rem] h-[2rem] rounded-full font-main text-blue-3" href="{{route('event.index')}}">Registro de Eventos</a> 
               <a class="px-4 flex justify-center items-center bg-blue-1 sm:h-[3.5rem] h-[2rem] rounded-full font-main text-blue-3" href="{{route('userHasCourse.index')}}">Asignar curso a estudiantes</a> 
               <hr class="w-[90vw] text-white bg-white" />
-              <a class="texto text-white flex justify-center mb-4" href="http://localhost:5173/">Cerrar sesión</a>
+              <a class="texto text-white flex justify-center mb-4" href="{{route('auth.create')}}">Cerrar sesión</a>
             </div>
           </div>
         </div>

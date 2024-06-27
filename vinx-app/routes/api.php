@@ -29,6 +29,7 @@ Route::post('/user/forgotPassword', [UserController::class, 'forgotPassword']);
 Route::post('/user/changeUserPassword', [UserController::class, 'changeUserPassword']);
 
 Route::post('/user/create', [UserController::class, 'store']);
+Route::post('/user/profile-img', [UserController::class, 'updateProfileImg']);
 Route::post('/user/auth', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function(){

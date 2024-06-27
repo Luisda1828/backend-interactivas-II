@@ -23,19 +23,14 @@ use App\Http\Controllers\AuthController;
  Route::get('/', function () {
      return view('login');
  });
-
-// Route::get('/add-course', function () {
-//     return view('createCourse');
-// });
-
-Route::resource('home', HomeController::class);
-Route::resource('course', CourseController::class);
-Route::resource('event', EventController::class);
-Route::resource('user', UserController::class);
-Route::resource('userHasCourse', UserHasCourseController::class);
-Route::resource('userHasEvent', UserHasEventController::class);
 Route::resource('auth', AuthController::class);
-
-
+Route::middleware('check.cookie')->group(function () {
+    Route::resource('home', HomeController::class);
+    Route::resource('course', CourseController::class);
+    Route::resource('event', EventController::class);
+    Route::resource('user', UserController::class);
+    Route::resource('userHasCourse', UserHasCourseController::class);
+    Route::resource('userHasEvent', UserHasEventController::class);
+});
 
 

@@ -20,7 +20,7 @@
           placeholder='Contraseña'
           class="w-full mb-4 h-16 text-center ring-2 ring-blue-3 rounded-full text-blue-3 focus:outline-none text-texto font-regular font-second bg-blue-1"
         />
-        <a class="text-blue-3 mb-[1.562rem] text-sm text-nowrap" href="">Olvidó su contraseña?</a>
+        
         <button type="submit" class='flex bg-blue-1 font-main font-bold text-subtitle justify-center items-center mb-4 text-center ring-2 ring-blue-3 rounded-full text-blue-3 w-full h-16'>Iniciar Sesion</button>
       </div>
         </form>
