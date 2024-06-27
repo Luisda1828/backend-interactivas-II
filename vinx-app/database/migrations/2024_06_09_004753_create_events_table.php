@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('id_category')->constrained('categories', 'cat_id');
             $table->string('eve_image');
             $table->datetime('eve_datetime');
+            $table->boolean('expired');
             $table->timestamps();
         });
     }

@@ -14,51 +14,73 @@ class CourseSeeder extends Seeder
     public function run()
     {
         Course::create([
-            
-            'cour_name' => 'Introduction to Programming',
-            'cour_teacher_id' => 3,
-            'cour_semester' => 'Fall',
-            'cour_year' => 2023,
-        ]);
-        
-        Course::create([
-            
-            'cour_name' => 'Introduction to Programming',
-            'cour_teacher_id' => 3,
-            'cour_semester' => 'Fall',
-            'cour_year' => 2023,
-        ]);
-        
-        Course::create([
-            
-            'cour_name' => 'Advanced Mathematics',
-            'cour_teacher_id' => 3,
-            'cour_semester' => 'Spring',
-            'cour_year' => 2023,
-        ]);
-        
-        Course::create([
-            
-            'cour_name' => 'Physics for Engineers',
-            'cour_teacher_id' => 3,
-            'cour_semester' => 'Fall',
+            'cour_name' => 'Introducción a la Programación',
+            'cour_teacher_id' => 1,
+            'cour_semester' => 1,
             'cour_year' => 2024,
         ]);
-        
+
         Course::create([
-            
-            'cour_name' => 'History of Art',
-            'cour_teacher_id' => 3,
-            'cour_semester' => 'Spring',
+            'cour_name' => 'Desarrollo Web con Laravel',
+            'cour_teacher_id' => 1,
+            'cour_semester' => 2,
             'cour_year' => 2024,
         ]);
-        
+
         Course::create([
-           
-            'cour_name' => 'Chemistry 101',
-           'cour_teacher_id' => 3,
-            'cour_semester' => 'Fall',
-            'cour_year' => 2023,
+            'cour_name' => 'Bases de Datos SQL',
+            'cour_teacher_id' => 1,
+            'cour_semester' => 3,
+            'cour_year' => 2024,
+        ]);
+
+        Course::create([
+            'cour_name' => 'Inteligencia Artificial',
+            'cour_teacher_id' => 1,
+            'cour_semester' => 1,
+            'cour_year' => 2024,
+        ]);
+
+        Course::create([
+            'cour_name' => 'Desarrollo de Aplicaciones Móviles',
+            'cour_teacher_id' => 1,
+            'cour_semester' => 2,
+            'cour_year' => 2024,
+        ]);
+
+        Course::create([
+            'cour_name' => 'Ciberseguridad',
+            'cour_teacher_id' => 1,
+            'cour_semester' => 3,
+            'cour_year' => 2024,
+        ]);
+
+        Course::create([
+            'cour_name' => 'Redes de Computadoras',
+            'cour_teacher_id' => 1,
+            'cour_semester' => 1,
+            'cour_year' => 2024,
+        ]);
+
+        Course::create([
+            'cour_name' => 'Algoritmos y Estructuras de Datos',
+            'cour_teacher_id' => 1,
+            'cour_semester' => 2,
+            'cour_year' => 2024,
+        ]);
+
+        Course::create([
+            'cour_name' => 'Programación en Python',
+            'cour_teacher_id' => 1,
+            'cour_semester' => 3,
+            'cour_year' => 2024,
+        ]);
+
+        Course::create([
+            'cour_name' => 'Sistemas Operativos',
+            'cour_teacher_id' => 1,
+            'cour_semester' => 1,
+            'cour_year' => 2024,
         ]);
     }
 
